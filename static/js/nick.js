@@ -1,6 +1,6 @@
 const url = "/api/data";
 
-// Set up function to populate dropdown box with county names
+// Set up function to populate dropdown box with county names and generate first chart
 function init() {
     // Set up dropdown menu options
     let dropdownMenu = d3.select("#selDataset");
@@ -39,6 +39,10 @@ function init() {
         .text(county);
     })
 
+    // Set up charts to display the data for the first county in the dropdown menu
+    const firstPlotCounty = unique_death_counties_array[0];
+    chartCreation(firstPlotCounty);
+
 })}
 
 init();
@@ -49,7 +53,7 @@ function chartCreation(county) {
     d3.json(url).then((data) => {
 
         // Create an object to store the sum of each field for the target DeathCounty
-        var sumForTargetCounty = {
+        let sumForTargetCounty = {
             "Heroin": 0,
             "Cocaine": 0,
             "Fentanyl": 0,
@@ -85,10 +89,46 @@ function chartCreation(county) {
                 sumForTargetCounty["Tramad"] += record.Tramad;
                 sumForTargetCounty["Morphine_NotHeroin"] += record.Morphine_NotHeroin;
                 sumForTargetCounty["Hydromorphone"] += record.Hydromorphone;
-            }
+        }});
 
-    })
-    console.log(sumForTargetCounty);
+        // Create variable that contains the drug names for the x axis of the bar chart
+        // Convert data into an array of objects
+        let sumArray = Object.entries(sumForTargetCounty).map(([drugName, value]) => ({drugName, value}));
+
+        // Sort the data in descending order based on values
+        sumArray.sort((a, b) => b.value - a.value);
+
+        // Extract x-axis labels and y-axis values for the chart
+        let drugNameLabels = sumArray.map(drug => drug.drugName);
+        let drugCount = sumArray.map(item => item.value);
+
+
+        // Set up bar chart parameters and plot
+        let traceBar = [
+            {
+                type: "bar",
+                x: drugNameLabels,
+                y: drugCount,
+                text: drugNameLabels
+            }
+        ];
+
+        // Set up layout variable for bar chart
+        let layoutBar = {
+            title: 'Drugs Present in System at Time of Death',
+            width: 1000,
+            height: 500,
+            xaxis: {
+                title: 'Drug Name'
+            },
+            yaxis: {
+                title: 'Count of Drugs in System'
+            }
+        };
+        // Plot the bar chart within the "bar" div set up in the index.html file  
+        Plotly.newPlot("bar", traceBar, layoutBar);
+
+    console.log(drugNameLabels);
 })};
 
 
