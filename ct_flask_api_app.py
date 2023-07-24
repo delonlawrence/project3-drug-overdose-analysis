@@ -5,7 +5,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from datetime import timedelta, datetime
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import pandas as pd
 import pprint
 
@@ -44,10 +44,12 @@ def dashboard():
     # pprint.pprint(test_data_json[0])
     print("hello")
     
-    return json_object
+    return jsonify(json_object)
 
 
-
+@app.route("/")
+def starthomepage():
+    return render_template("index.html")
 
 
 if __name__ == '__main__':

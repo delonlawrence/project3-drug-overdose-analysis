@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CT Drug Overdose Crisis</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+</head>
+
+<body>
+
+  <h1>Visualizations</h1>
+
+   <!-- The main container that holds the entire page content -->
+   <div class="container">
+
+    <!-- Header row with title and description -->
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Drug Overdose Crisis Analysis</h1>
+        <p>Use the interactive charts below to explore the dataset</p>
+      </div>
+    </div>
+
+    <!-- First row containing three columns -->
+    <div class="row">
+
+      <!-- Column for selecting a test subject -->
+      <div class="col-md-3">
+        <div class="well">
+          <h5>Test Subject ID No.:</h5>
+          <!-- Dropdown select element for test subjects -->
+          <select id="selDataset" onchange="optionChanged(this.value)">
+          </select>
+        </div>
+
+        <!-- Panel displaying demographic information -->
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Demographic Info</h3>
+          </div>
+          <!-- Placeholder for demographic information, will be filled dynamically -->
+          <div id="sample-metadata" class="panel-body"></div>
+        </div>
+      </div>
+
+      <!-- Column for a bar chart -->
+      <div class="col-md-5">
+        <!-- Placeholder for the bar chart, will be filled dynamically -->
+        <div id="bar"></div>
+      </div>
+
+      <!-- Column for a gauge chart -->
+      <div class="col-md-4">
+        <!-- Placeholder for the gauge chart, will be filled dynamically -->
+        <div id="gauge"></div>
+      </div>
+    </div>
+
+    <!-- Second row containing a single column -->
+    <div class="row">
+      <!-- Column for a bubble chart -->
+      <div class="col-md-12">
+        <!-- Placeholder for the bubble chart, will be filled dynamically -->
+        <div id="bubble"></div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+  <!-- D3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- Our JavaScript -->
+  <script type="text/javascript" src="static/js/app.js"></script>
+</body>
+
+</html>
