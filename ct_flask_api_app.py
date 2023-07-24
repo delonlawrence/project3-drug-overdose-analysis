@@ -39,12 +39,9 @@ app = Flask(__name__)
 def dashboard():
     # display charts and map
     ct = pd.read_sql("SELECT * FROM ct_overdose_deaths", conn)
-    json_object = ct.set_index('ID').to_dict(orient='index')
-    # test_data_list = [data[0] for data in test_data]
-    # pprint.pprint(test_data_json[0])
-    print("hello")
+    json_objects_list = ct.to_dict(orient='records')
     
-    return jsonify(json_object)
+    return jsonify(json_objects_list)
 
 
 @app.route("/")
