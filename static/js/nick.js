@@ -43,6 +43,10 @@ function init() {
     const firstPlotCounty = unique_death_counties_array[0];
     chartCreation(firstPlotCounty);
 
+    // Show map of Connecticut on page open by calling map function
+    createMap();
+
+
 })}
 
 init();
