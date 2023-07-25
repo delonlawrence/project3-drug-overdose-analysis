@@ -1,16 +1,80 @@
-const url = "/api/data";
-
-d3.json(url).then(function(data) {
-    console.log(data);
-}).catch(function(error) {
-    console.error("Error fetching data:", error);
-});
 
 
+function demographics(county) {
+    const url = "/api/data";
+    // Set up dropdown menu options
+    let dropdownMenu = d3.select("#selDataset");
+  
+    // Define variable for the currently selected county
+    let selectedCounty = dropdownMenu.property("value");
+  
+    // Load data from the API using d3.json()
+    d3.json(url)
+      .then((data) => {
+        // Extract an array of races from the data
+        let races = data.map(function (record) {
+          return record.Race;
+        });
+  
+        // Use a Set to get the unique 'Race' elements
+        let uniqueRaces = new Set(races);
+  
+        // Convert the Set back to an array if needed
+        let uniqueRacesArray = Array.from(uniqueRaces);
+  
+        console.log("Unique Races:", uniqueRacesArray);
+  
+        // Variable to count records by Race
+        let raceCounts = {
+          'Black': 0,
+          'Asian, Other': 0,
+          'White': 0,
+          'Hispanic, White': 0,
+          'Asian Indian': 0,
+          'Hispanic, Black': 0,
+          'Unknown': 0,
+          'Other': 0,
+          'Native American, Other': 0,
+          'Chinese': 0
+        };
+  
+        data.forEach((record) => {
+          if (record.DeathCounty === county) {
+            const race = record.Race;
+            if (race in raceCounts) {
+              raceCounts[race]++;
+            }
+          }
+        });
+  
+        console.log("Race Counts:", raceCounts);
+  
+        // Convert raceCounts object to an array of key-value pairs for easy iteration
+        let raceCountsArray = Object.entries(raceCounts);
+  
+        // Clear the existing content of the panel-body div
+        let panelBody = d3.select("#sample-metadata");
+        panelBody.html("");
+  
+        // Append the race counts information to the panel-body div
+        raceCountsArray.forEach(([race, count]) => {
+          let paragraph = panelBody.append("p");
+          paragraph.text(`${race}: ${count}`);
+        });
+  
+        // Call other functions or perform further processing here if needed...
+      })
+      .catch((error) => {
+        console.error("Error loading data:", error);
+      });
+  }
+  
+  
 
 
+    
 
-
+// demographics();
 
 
 

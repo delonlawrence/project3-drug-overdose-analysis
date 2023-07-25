@@ -45,6 +45,8 @@ function init() {
 
     // Show map of Connecticut on page open by calling map function
     createMap();
+    // Show demographics for first county in dropdown menu
+    demographics(firstPlotCounty);
 
 
 })}
@@ -141,5 +143,6 @@ function chartCreation(county) {
 
 function optionChanged(newCounty) {
     chartCreation(newCounty);
+    demographics(newCounty);
     
 };
