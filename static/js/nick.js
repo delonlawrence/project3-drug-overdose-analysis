@@ -115,7 +115,10 @@ function chartCreation(county) {
                 type: "bar",
                 x: drugNameLabels,
                 y: drugCount,
-                text: drugNameLabels
+                text: drugNameLabels,
+                // marker: {
+                //     color: 'Blues'
+                // }
             }
         ];
 
@@ -140,9 +143,12 @@ function chartCreation(county) {
 
 
 
+// Call "optionChanged" function when different county is selected in dropdown element
 
 function optionChanged(newCounty) {
+    // Call chart creation function with newly selected county
     chartCreation(newCounty);
+    // Call demographics function with newly selected county
     demographics(newCounty);
     
 };

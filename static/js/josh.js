@@ -12,14 +12,14 @@ const url = "/api/data";
 
   d3.json(url)
     .then((data) => {
-    console.log("Raw data:", data); // Log the raw data from the API
+    // console.log("Raw data:", data); // Log the raw data from the API
 
     let death_counties = data.map(function (record) {
       // Extract city, state, latitude, and longitude using regular expressions
       const cityStateRegex = /([^,]+),\s*([^(\s]+)\s*\(([^,]+),\s*([^)]+)\)/; // Matches city, state, (lat, long)
       const match = record.DeathCityGeo.match(cityStateRegex);
 
-      console.log("Record:", record.DeathCityGeo); // Log the current record's "DeathCityGeo" value
+      // console.log("Record:", record.DeathCityGeo); // Log the current record's "DeathCityGeo" value
 
       if (match) {
         const city = match[1].trim();
@@ -48,7 +48,7 @@ const url = "/api/data";
 
 
     // Do something with the extracted data
-    console.log("Extracted data:", death_counties);
+    // console.log("Extracted data:", death_counties);
   })
   .catch((error) => {
     console.error('Error fetching JSON data:', error);
