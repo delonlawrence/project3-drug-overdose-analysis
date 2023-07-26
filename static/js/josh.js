@@ -2,6 +2,58 @@
 function createMap() {
     // Set up variable for map to be centered on Connecticut, US
     let mapConn = L.map('map-id').setView([41.6032, -73.0877], 8.5);
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap',
+      maxZoom: 19
+  });
+  osm.addTo(mapConn);
+// script.js
+const url = "/api/data";
+
+  d3.json(url)
+    .then((data) => {
+    console.log("Raw data:", data); // Log the raw data from the API
+
+    let death_counties = data.map(function (record) {
+      // Extract city, state, latitude, and longitude using regular expressions
+      const cityStateRegex = /([^,]+),\s*([^(\s]+)\s*\(([^,]+),\s*([^)]+)\)/; // Matches city, state, (lat, long)
+      const match = record.DeathCityGeo.match(cityStateRegex);
+
+      console.log("Record:", record.DeathCityGeo); // Log the current record's "DeathCityGeo" value
+
+      if (match) {
+        const city = match[1].trim();
+        const state = match[2].trim();
+        const latitude = parseFloat(match[3].trim());
+        const longitude = parseFloat(match[4].trim());
+
+        // Return an object containing extracted data
+        // return { city, state, latitude, longitude };
+        return {latitude, longitude};
+      }
+
+      // Return null if the format doesn't match
+      return null;
+    });
+
+    // Filter out null values (entries with incorrect format)
+    death_counties = death_counties.filter(item => item !== null);
+
+    var heat = L.heatLayer(
+      death_counties.map(item => [item.latitude, item.longitude, 1]),
+      
+
+    {radius: 25}).addTo(mapConn);
+    // Add base map layer
+
+
+    // Do something with the extracted data
+    console.log("Extracted data:", death_counties);
+  })
+  .catch((error) => {
+    console.error('Error fetching JSON data:', error);
+  });
+
 
     // Add base map layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -430,4 +482,4 @@ function createMap() {
 
     
 
-}
+};
