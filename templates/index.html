@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css" rel="stylesheet">
   <title>CT Drug Overdose Crisis</title>
 
   <!-- Leaflet CSS -->
@@ -41,14 +42,14 @@
         <div class="well">
           <h5>Select County for Analysis:</h5>
           <!-- Dropdown select element for test subjects -->
-          <select id="selDataset" onchange="optionChanged(this.value)">
+          <select id="selDataset" onchange="optionChanged(this.value)" data-title="County select" data-intro="Choose a county to explore it's corresponding data set.">
           </select>
         </div>
 
         <!-- Panel displaying demographic information -->
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Demographic Info</h3>
+            <h3 class="panel-title" data-title="Display Panel" data-intro="This panel dynamically displays the deaths for each county.">Demographic Info</h3>
           </div>
           <!-- Placeholder for demographic information, will be filled dynamically -->
           <div id="sample-metadata" class="panel-body"></div>
@@ -62,7 +63,7 @@
             <h3 class="panel-title"></h3>
           </div>
           <!-- Placeholder for the pie chart, will be filled dynamically -->
-          <div id="pie-chart"></div>
+          <div id="pie-chart" data-title="Pie Chart" data-intro="The pie chart displays the death percentages by race for each county. Hover over the segments of the pie chart for clearer legibility."></div>
         </div>
       </div>
        
@@ -72,7 +73,7 @@
     <div class="row"> 
     <div class="col-md-10">
       <!-- Placeholder for the bar chart, will be filled dynamically -->
-      <div id="bar" class="text-center"></div>
+      <div id="bar" class="text-center" data-title="bar chart" data-intro="This bar chart displays the types of drugs used by those who die from drug overdoses in each county. It goes from most common to least."></div>
     </div>
 
   </div>
@@ -86,7 +87,7 @@
       <!-- Column for a bubble chart -->
       <div class="col-md-12">
         <!-- Placeholder for the map -->
-        <div id="map-id" class="map-container"></div>
+        <div id="map-id" class="map-container" data-title="Death Heat Map" data-intro="This map shows the various concentrations of deaths for the counties provided in the data set. Hover over the pins to see the locations and zoom in and out for more or less detail."></div>
       </div>
     </div>
   </div>
@@ -114,7 +115,14 @@ crossorigin=""/>
   <script type="text/javascript" src="../static/js/leaflet-heat.js"></script>
   <!-- Our Plotly Script -->
   <script src="https://cdn.plot.ly/plotly-2.24.1.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+  <script>
+    introJs().start();
+  </script>
 
 </body>
 
 </html>
+
+
+
